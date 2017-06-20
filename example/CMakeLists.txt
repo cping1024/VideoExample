@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 2.8)
+
+find_package(OpenCV REQUIRED)
+file(GLOB_RECURSE src ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+foreach(source ${src})
+	get_filename_component(name ${source} NAME_WE)
+	set(name ${name}.bin)
+	add_executable(${name} ${source})
+        target_link_libraries(${name} ${common_deps} sn_codec_gpu ${nvcodec_deps}  ${OpenCV_LIBS} )
+	install(TARGETS ${name} DESTINATION bin)
+endforeach()
